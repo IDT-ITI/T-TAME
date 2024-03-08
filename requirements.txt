@@ -1,8 +1,19 @@
-torch==1.11.0
-torchvision==0.12.0
-numpy==1.22.4
-tqdm==4.64.0
-opencv-python==4.5.5.64
-Pillow==9.1.1
-scikit-learn==1.1.1
-matplotlib==3.5.2
+-e .
+matplotlib
+numpy
+opencv_python
+Pillow
+scikit_learn
+torch
+torchvision
+tqdm
+pyyaml
+pandas
+einops
+grad-cam
+timm
+typing_extensions
+tensorboard
+jaxtyping
+lightning
+torchmetrics
