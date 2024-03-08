@@ -1,162 +1,133 @@
-# L-CAM
+# T-TAME: Trainable Attention Mechanism for Explanations, now for transformers
 
-This repository hosts the code and data lists for our two learning-based eXplainable AI (XAI) methods called L-CAM-Fm and L-CAM-Img, for deep convolutional neural networks (DCNN) image classifiers. Our methods receive as input an image and a class label and produce as output the image regions that the DCNN has focused on in order to infer this class. Both methods use an attention mechanism (AM), trained  end-to-end  along  with the original (frozen) DCNN, to derive class activation maps (CAMs) from the last convolutional layer’s feature maps (FMs). During training, CAMs are applied to the FMs (L-CAM-Fm) or the input image (L-CAM-Img), forcing the AM to learn the image regions explaining the DCNN’s outcome. Two widely-used evaluation metrics, Increase in Confidence (IC) and Average Drop (AD), are used for evaluation.
-- This repository contains the code for training L-CAM-Fm and L-CAM-Img, using VGG-16 or ResNet-50 as the pre-trained backbone network along with the Attention Mechanism and our selected loss function. There is also code to train the above networks with the conventional cross-entropy loss. The models files with the model architecture are named as following:
-First the name of the backbone (ResNet50 or VGG-16) and then the method's name (L-CAM-Fm or L-CAM-Img). If the model uses the cross-entropy loss (instead of our proposed loss function) there is also an A character at the end of the name, e.g. ResNet50_L_CAM_ImgA.py. There is also a variation L-CAM-Img with VGG-16 backbone where the AM's input is the 7×7 FMs after the last max pooling layer of VGG-16, in contrast to all the others models that use the last convolutional layer of the backbone. This model is named VGG16_7x7_L_CAM_Img.py.  
-- Instead of training, the user can also download the pre-trained models for L-CAM-Fm and L-CAM-Img (again using VGG-16 or ResNet-50 as the backbone network along with the Attention Mechanism and our selected loss function [here](https://drive.google.com/drive/folders/1QiwB3iEobEPnSB9NRSsmDaUAuBMiPdz2?usp=sharing). The pre-trained models are named in the same way as the models files (as explained in the previous paragraph). 
-- There is also code for evaluating our method according to two widely used evaluation metrics for DCNN explainability, Increase in Confidence (IC) and Average Drop (AD).  In the same script, Top-1 and Top-5 accuracy is as well calculated.
-- Furthermore, there is the code to evaluate the methods that are used in our paper for comparisons with L-CAM-Fm and L-CAM-Img.
-- In [L-CAM/datalist/ILSVRC](https://github.com/bmezaris/L-CAM/tree/main/datalist/ILSVRC) there are text files with annotations for training VGG-16 and ResNet-50 (VGG-16_train.txt, ResNet50_train.txt) and text files with annotations for 2000 randomly selected images to be used at the evaluation stage (Evaluation_2000.txt) for the L-CAM methods.
-- The ImageNet1K dataset images should be downloaded by the user manually.
-- This project is implemented and tested in python 3.6 and PyTorch 1.9.
+This repository hosts the code and data lists for our learning-based eXplainable AI (XAI) method called T-TAME, for Convolutional and Transformer-like Deep Neural Network-based (DNN) image classifiers. Our method receives as input an image and a class label and produces as output the image regions that the DNN has focused on in order to infer this class. T-TAME uses an attention mechanism (AM), trained end-to-end along with the original, already-trained (frozen) DNN, to derive class activation maps from feature map sets extracted from selected layers. During training, the generated attention maps of the AM are applied to the inputs. The AM weights are updated by applying backpropagation on a multi-objective loss function to optimize the appearance of the attention maps (minimize high-frequency variation and attention mask area) and minimize the cross-entropy loss. This process forces the AM to learn the image regions responsible for the DNN’s output. Two widely-used evaluation metrics, Increase in Confidence (IC) and Average Drop (AD), are used for evaluation. Additionally, the promising ROAD framework is also used for evaluation. We evaluate T-TAME on the ImageNet dataset, using the VGG16, ResNet-50 and ViT-B-16 DNNs. Our method outperforms the state-of-the-art methods in terms of IC and AD, and achieves competitive results in terms of ROAD. We also provide a detailed ablation study to demonstrate the effectiveness of our method.
 
-## Basic code requirements
-- PyTorch
-- opencv-python
-- scikit-learn
-- tqdm
+- This repository contains the code for training, evaluating and applying T-TAME, using VGG-16, ResNet-50 or ViT-B-16 as the pre-trained backbone network along with the Attention Mechanism and our selected loss function. There is also a guide on applying TAME to any DNN image classifier.
+- Instead of training, the user can also use a pretrained attention mechanism for the pretrained VGG-16, ResNet-50 or ViT-B-16 image classifiers in `T-TAME/logs/`.
+- In `T-TAME/datalist/ILSVRC`, text files with annotations for 2000 randomly selected images to be used at the validation stage (Validation_2000.txt) and 2000 randomly selected images (exclusive of the previous 2000) for the evaluation stage (Evaluation_2000.txt) of the L-CAM methods.
+- The ILSVRC 2012 dataset images should be downloaded by the user manually.
 
-## Visual examples and comparison of results 
-![alt text](https://github.com/bmezaris/L-CAM/blob/main/images/superimposed.png)
+---
 
-## Data preparation
-Download [here](https://image-net.org/) the training and evaluation images for ImageNet1K dataset, then extract folders and sub-folders and place the extracted folders (ILSVRC2012_img_train, ILSVRC2012_img_val) in the dataset/ILSVRC2012_img_train and dataset/ILSVRC2012_img_val folders. The folder structure of the image files should look as below:
+- [T-TAME: Trainable Attention Mechanism for Explanations, now for transformers](#t-tame-trainable-attention-mechanism-for-explanations-now-for-transformers)
+  - [Initial Setup](#initial-setup)
+  - [Available scripts](#available-scripts)
+  - [Citation](#citation)
+  - [License](#license)
+  - [Acknowledgement](#acknowledgement)
+
+## Initial Setup
+
+Make sure that you have a working git, Python 3, cuda and poetry installation before proceeding.
+
+- To install git, follow the instructions [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+
+- To install python, follow the instructions [here](https://www.python.org/downloads/).
+
+- To install cuda, follow the instructions [here](https://developer.nvidia.com/cuda-downloads).
+
+- To install poetry, follow the instructions [here](https://python-poetry.org/docs/).
+
+1. Clone this repository:
+
+   ```shell
+   git clone git@github.com:marios1861/T-TAME.git
+   ```
+
+2. Go to the locally saved repository path:
+
+   ```shell
+   cd T-TAME
+   ```
+
+3. Install:
+
+   ```shell
+   poetry install
+   ```
+
+> __Note__: You may need to modify the venv activate script in the case that cuda is already installed in your machine. If so, add this line:
+> `export LD_LIBRARY_PATH=.../venv/lib/python3.8/site-packages/nvidia/cublas/lib/:$LD_LIBRARY_PATH`
+
+## Available scripts
+
+You can evaluate the compared methoods, including T-TAME with the `{vgg16, resnet50, vit_b_16}` backbones using the following command:
+ using the command:
+
+```shell
+python pl_scripts/{vgg16, resnet50, vit_b_16}_comparisons.py
 ```
-dataset
-    └── ILSVRC2012_img_train
-        └── n01440764
-            ├── n01440764_10026.JPEG
-            ├── n01440764_10027.JPEG
-            └── ...
-        └── n01443537
-        └── ...
-    └── ILSVRC2012_img_val
-        ├── ILSVRC2012_val_00000001.JPEG
-        ├── ILSVRC2012_val_00000002.JPEG
-        └── ...
+
+You can train the T-TAME method using the following command:
+
+```shell
+python pl_scripts/{vgg16, resnet50, vit}_TAME.py
 ```
 
-## Install
-- Clone this repository
-~~~
-git clone https://github.com/bmezaris/L-CAM
-~~~
-- Go to the locally saved repository path:
-~~~
-cd L-CAM
-~~~
-- Create the snapshots folder to save the trained models:
-~~~
-mkdir snapshots
-~~~
+You can generate explanation maps for the T-TAME method using the following command:
 
-## Training
+```shell
+python pl_scripts/TAME_print_mask.py
+```
 
-- To train from scratch VGG-16 or ResNet-50, run for the VGG-16 backbone with the selected loss function:
-~~~
-cd scripts
-sh VGG16_train.sh 
-~~~
-**OR**, for the VGG-16 backbone with cross-entropy loss:
-~~~
-cd scripts
-sh VGG16_train_CE.sh 
-~~~
-**OR**, for the ResNet-50 backbone with the selected loss function:
-~~~
-cd scripts
-sh ResNet50_train.sh
-~~~
-**OR**, for the ResNet-50 backbone with cross-entropy loss:
-~~~
-cd scripts
-sh ResNet50_train_CE.sh 
-~~~
-Before running any of the .sh files, set the img_dir, snapshot_dir and arch parameters inside the .sh file. For the *_CE.sh files the arch parameter must be set only with model file's names (*/L-CAM/models) with the A character at the end, for all the other .sh files the arch parameter must be set with file's names (*/L-CAM/models) without the A character at the end. The produced model will be saved in the snapshots folder. 
+You can generate explanation maps for the compared methods using the following command:
 
-## Evaluation of L-CAM-Fm and L-CAM-Img
-- To evaluate the model, download the pretrained models that are available in this [GoogleDrive](https://drive.google.com/drive/folders/1QiwB3iEobEPnSB9NRSsmDaUAuBMiPdz2?usp=sharing), and place the downloaded folders (VGG16_L_CAM_Img, VGG16_L_CAM_Fm, VGG16_7x7_L_CAM_Img, ResNet50_L_CAM_Fm, ResNet50_L_CAM_Img) in the snapshots folder; otherwise, use your own trained model that is placed in the snapshots folder.
-
-- Run the commands below to calculate Increase in Confidence (IC) and Average Drop (AD), if using the VGG-16 backbone:
-~~~
-cd scripts
-sh VGG16_AD_IC.sh 
-~~~
-
-**OR**, if using the ResNet-50 backbone:
-~~~
-cd scripts
-sh ResNet50_AD_IC.sh
-~~~
-Before running any of the .sh files, again set the img_dir, snapshot_dir, arch and percentage parameters inside the .sh file.
-
-## Evaluation of the other methods
-- To evaluate the methods that are used for comparison with L-CAM-Fm and L-CAM-Img, run the commands below to calculate Increase in Confidence (IC) and Average Drop (AD):
-~~~
-cd scripts
-sh Inference_OtherMethods.sh 
-~~~
-Before running  the .sh file, first take the code for Grad-Cam, Grad-Cam++, Score-CAM and RISE from [ScoreCAM](https://github.com/yiskw713/ScoreCAM/blob/master/cam.py) repository and [RISE](https://github.com/eclique/RISE) repository  and save it to */L-CAM/utils/cam.py file. Than select from */L-CAM/Inference_OtherMethod the file with the method that you want to evaluate e.g. For ResNet-50 backbone and RISE method select ResNet50_rise.py from */L-CAM/Inference_OtherMethods folder/ and set it in the Inference_OtherMethods.sh file. Also, set the img_dir and percentage parameters inside the .sh file.
-For example:
-~~~
-CUDA_VISIBLE_DEVICES=0 python ResNet_rise.py \
---img_dir='/ssd/imagenet-1k/ILSVRC2012_img_val' \
---percentage=0.5 \
-~~~
-
-## Parameters
-During the training and evaluation stages the above parameters can be specified.
-
-Parameter name | Description | Type |Default Value
-| ---: | :--- | :---: | :---:
-`--root_dir` | Root directory for the project. | str| ROOT_DIR |
-`--img_dir` | Directory where the training images reside. | str| img_dir |
-`--train_list` | The path where the annotations for training reside. | str| train_list |
-`--test_list` | The path where the annotations for evaluation reside. | str| test_list |
-`--batch_size` | Selected batch size. | int| Batch_size |
-`--input_size` | Image scaling parameter: the small side of each image is resized, to become equal to this many pixels. | int| 256 |
-`--crop_size` | Image cropping parameter: each (scaled) image is cropped to a square crop_size X crop_size pixels image. | int| 224 |
-`--arch` | Architecture selected from the architectures that are avaiable in the models folder. | str | e.g. ResNet50_aux_ResNet18_TEST |
-`--lr` | The initial learning rate. | float| LR |
-`--epoch` | Number of epochs used in training process. | int| EPOCH |
-`--snapshot_dir` | Directory where the trained models are stored. | str| Snapshot_dir |
-`--percentage` | Percentage of saliency's muted pixels. | float| percent |
-
-The above parameters can be changed in the .sh files. For example:
-~~~
-CUDA_VISIBLE_DEVICES=0 python Evaluation_L_CAM_ResNet50.py \
-	--img_dir='/m2/ILSVRC2012_img_val' \
-	--snapshot_dir='/m2/gkartzoni/L-CAM/snapshots/ResNet50_L_CAM_Img' \
-	--arch='ResNet50_L_CAM_Img' \
-	--percentage=0 \
-~~~
-We use relative paths for train_list and test_list so they are specified relative to the project path (/L-CAM) in the .py files. The paths that must be specified externally are arch(from */L-CAM/models folder), snapshot_dir, img_dir and percentage, as in the example.
+```shell
+python pl_scripts/othger_methods_print_mask.py
+```
 
 ## Citation
-<div align="justify">
-    
-If you find our work, code or pretrained models, useful in your work, please cite the following publication:
 
-I. Gkartzonika, N. Gkalelis, V. Mezaris, "Learning visual explanations for DCNN-based image classifiers using an attention mechanism", 2022, under review.
+<div align="justify">
+
+If you find our TAME method, code or pretrained models useful in your work, please cite the following publication:
+
+<span style="color:red">
+M. Ntrougkas, N. Gkalelis, V. Mezaris, "TAME: Attention Mechanism Based Feature Fusion for Generating Explanation Maps of Convolutional Neural Networks", 2022, under review.
+</span>
+
 </div>
 
 BibTeX:
 
-```
-@INPROCEEDINGS{9666088,
-    author    = {Gkartzonika, Ioanna and Gkalelis, Nikolaos and Mezaris, Vasileios},
-    title     = {Learning visual explanations for DCNN-based image classifiers using an attention mechanism},
+<span style="color:red">
+~~~bibtex
+@INPROCEEDINGS{Ntrougkas2022,
+    author    = {Ntrougkas, Mariano and Gkalelis, Nikolaos and Mezaris, Vasileios},
+    title     = {TAME: Attention Mechanism Based Feature Fusion for Generating Explanation Maps of Convolutional Neural Networks},
     booktitle = {under review},
     month     = {},
     year      = {2022},
     pages     = {}
 }
-```
+~~~
+</span>
+
+<div align="justify">
+
+You may want to also consult and, if you find it also useful, also cite our earlier work on this topic (methods L-CAM-Img, L-CAM-Fm):
+
+I. Gkartzonika, N. Gkalelis, V. Mezaris, "Learning Visual Explanations for DCNN-Based Image Classifiers Using an Attention Mechanism", Proc. ECCV 2022 Workshop on Vision with Biased or Scarce Data (VBSD), Oct. 2022.
+</div>
+
+BibTeX:
+
+~~~bibtex
+@INPROCEEDINGS{Gkartzonika2022,
+    author    = {Gkartzonika, Ioanna and Gkalelis, Nikolaos and Mezaris, Vasileios},
+    title     = {Learning Visual Explanations for DCNN-Based Image Classifiers Using an Attention Mechanism},
+    booktitle = {Proc. ECCV 2022 Workshop on Vision with Biased or Scarce Data (VBSD)},
+    month     = {Oct.},
+    year      = {2022},
+    pages     = {}
+}
+~~~
 
 ## License
+
 <div align="justify">
-    
-Copyright (c) 2022, Ioanna Gkartzonika, Nikolaos Gkalelis, Vasileios Mezaris / CERTH-ITI. All rights reserved. This code is provided for academic, non-commercial use only. Redistribution and use in source and binary forms, with or without modification, are permitted for academic non-commercial use provided that the following conditions are met:
+
+Copyright (c) 2024, Mariano Ntrougkas, Nikolaos Gkalelis, Vasileios Mezaris / CERTH-ITI. All rights reserved. This code is provided for academic, non-commercial use only. Redistribution and use in source and binary forms, with or without modification, are permitted for academic non-commercial use provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation provided with the distribution.
@@ -165,9 +136,9 @@ This software is provided by the authors "as is" and any express or implied warr
 </div>
 
 ## Acknowledgement
-The training process is based on code released in the [DANet](https://github.com/xuehaolan/DANet) repository.
 
-The code for the methods that are used for comparison with L-CAM-Fm and L-CAM-Img is taken from the [ScoreCAM](https://github.com/yiskw713/ScoreCAM/blob/master/cam.py) repository, except for the code for the RISE method, which is taken from the [RISE](https://github.com/eclique/RISE) repository.
+The T-TAME implementation was built in part on code previously released in the [L-CAM](https://github.com/bmezaris/L-CAM) repository.
 
-<div align="justify"> This work was supported by the EU Horizon 2020 programme under grant agreements H2020-951911 AI4Media and H2020-832921 MIRROR. </div>
+The code for the methods that are used for comparison is taken from the [L-CAM](https://github.com/bmezaris/L-CAM) repository for L-CAM-Img, the [RISE](https://github.com/eclique/RISE) repository for RISE, the [IIA](https://github.com/iia-iccv23/iia) repository for IIA, the [Transformer-Explainability](https://github.com/hila-chefer/Transformer-Explainability) repository for the Transformer LRP method and the [pytorch-gradcam](https://github.com/yiskw713/ScoreCAM/blob/master/cam.py) repository for all of the remaining methods.
 
+<div align="justify"> This work was supported by the EU Horizon 2020 programme under grant agreement H2020-101021866 CRiTERIA. </div>

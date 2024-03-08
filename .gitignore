@@ -1,4 +1,28 @@
-/scripts/pc2/
-/scripts/pc3/
-/Inference_OtherMethods/
 /.idea/
+/images/heatmaps/
+/dataset/ILSVRC2012_img_train
+/dataset/ILSVRC2012_img_val
+/snapshots/data/
+/.venv/
+/.ipynb_checkpoints
+*.pyc
+*.code-workspace
+doodle.ipynb
+/snapshots
+/LR
+*.csv
+*.egg-info
+evaluation_data/
+.tb_logs/
+ddp_run.sh
+hparams.yaml
+.env
+*lightning_logs/
+old models/
+*logs/
+_torchshow/
+wandb
+*.ckpt
+*.npy
+/pl_scripts/old scripts
+/pl_scripts/ran

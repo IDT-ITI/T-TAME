@@ -1,0 +1,28 @@
+trainer:
+  strategy:
+    class_path: pytorch_lightning.strategies.DDPStrategy
+    init_args:
+      find_unused_parameters: false
+  gradient_clip_algorithm: norm
+  precision: 16
+  accumulate_grad_batches: 4
+  # logger:
+  #   class_path: pytorch_lightning.loggers.CSVLogger
+  #   init_args:
+  #     save_dir: "evaluation data"
+  #     name: "resnet50"
+
+model:
+  model_name: resnet50
+  layers:
+    - layer2
+    - layer3
+    - layer4
+  schedule: CLASSIC
+  epochs: 8
+  lr: 5.0e-3
+data:
+  batch_size: 64
+#   num_workers: 0
+
+# MASTER_ADDR=iti-863 MASTER_PORT=12345 WORLD_SIZE=2 NODE_RANK=0 LOCAL_RANK=0 tame-auto fit --trainer.devices 2 --config pl_configs/default.yaml --config pl_configs/resnet50_tame_ddp.yaml

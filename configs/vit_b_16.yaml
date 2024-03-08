@@ -1,0 +1,8 @@
+model: vit_b_16  # Model name
+layers: 
+  - encoder.layers.encoder_layer_9
+  - encoder.layers.encoder_layer_10
+  - encoder.layers.encoder_layer_11
+lr: 1.0e-4
+path: "pl_scripts/lightning_logs/version_2/checkpoints/epoch=7-step=13352.ckpt"
+

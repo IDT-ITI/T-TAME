@@ -1,0 +1,22 @@
+input_size: 256
+crop_size: 224
+dataset: /home/marios/Documents/imagenet-1k # Absolute path to dataset dir
+datalist: /home/marios/Documents/T-TAME/datalist/ILSVRC # Absolute path to datalist dir
+datalist_file: false
+model: vgg16  # Model name
+batch_size: 32
+num_workers: 4
+layers: 
+  - features.16
+  - features.23
+  - features.30
+version: TAME  # Or Noskipconnection, NoskipNobatchnorm, Sigmoidinfeaturebranch
+optimizer: SGD  # Or Adam, Adamw, RMSProp
+schedule: NEW
+snapshot_dir: /home/marios/Documents/T-TAME/snapshots  # Path to snapshot dir
+lr: 1.0e-3  # max lr in onecyclelr
+momentum: 0.9
+decay: 5.0e-4
+epochs: 8  # training epochs
+noisy_masks: true  # use new or old mask selection scheme (true is old)
+

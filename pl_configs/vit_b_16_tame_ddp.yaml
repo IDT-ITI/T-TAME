@@ -1,0 +1,22 @@
+trainer.strategy:
+  class_path: pytorch_lightning.strategies.DDPStrategy
+  init_args:
+    find_unused_parameters: false
+# trainer.logger:
+#   class_path: pytorch_lightning.loggers.CSVLogger
+#   init_args:
+#     save_dir: "evaluation data"
+#     name: "vit_b_16"
+model:
+  model_name: vit_b_16
+  layers:
+    - encoder.layers.encoder_layer_9
+    - encoder.layers.encoder_layer_10
+    - encoder.layers.encoder_layer_11
+  schedule: CLASSIC
+  epochs: 8
+  lr: 1.0e-4
+# data:
+#   num_workers: 0
+
+# MASTER_ADDR=iti-863 MASTER_PORT=12345 WORLD_SIZE=2 NODE_RANK=0 LOCAL_RANK=0 tame-auto fit --trainer.devices 2 --config pl_configs/default.yaml --config pl_configs/resnet50_tame_ddp.yaml

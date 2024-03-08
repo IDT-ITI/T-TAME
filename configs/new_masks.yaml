@@ -1,0 +1,3 @@
+# all else is default
+noisy_masks: false  # use new or old mask selection scheme (true is old)
+

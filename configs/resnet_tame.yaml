@@ -1,0 +1,8 @@
+model: resnet50
+layers: 
+  - layer2
+  - layer3
+  - layer4
+schedule: CLASSIC
+lr: 1.0e-4
+epochs: 4

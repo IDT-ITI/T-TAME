@@ -1,0 +1,11 @@
+{
+	"python.terminal.activateEnvironment": true,
+	"python.analysis.typeCheckingMode": "basic",
+	"python.analysis.diagnosticSeverityOverrides": {
+		"reportPrivateImportUsage": "none"
+	},
+	"flake8.args": [
+		"--ignore=E501, W503, E203, F722",
+		"--max-line-length=88",
+	],
+}
