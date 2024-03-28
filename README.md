@@ -46,6 +46,15 @@ Make sure that you have a working git, Python 3, cuda and poetry installation be
    poetry install
    ```
 
+4. Create a `.env` file in `pl_scripts`. The file should contain the folllowing key-value pair:
+
+   ```shell
+   DATA=<path to imagenet dataset>
+   LIST=<path to datalist folder>
+   ```
+
+   The `LIST` path should be the path to the `./datalist/ILSVRC` folder if using the ImageNet dataset.
+
 > __Note__: You may need to modify the venv activate script in the case that cuda is already installed in your machine. If so, add this line:
 > `export LD_LIBRARY_PATH=.../venv/lib/python3.8/site-packages/nvidia/cublas/lib/:$LD_LIBRARY_PATH`
 
