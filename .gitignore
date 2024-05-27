@@ -16,7 +16,6 @@ evaluation_data/
 .tb_logs/
 ddp_run.sh
 hparams.yaml
-.env
 *lightning_logs/
 old models/
 *logs/

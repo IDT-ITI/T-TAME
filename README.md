@@ -2,8 +2,8 @@
 
 This repository hosts the code and data lists for our learning-based eXplainable AI (XAI) method called T-TAME, for Convolutional and Transformer-like Deep Neural Network-based (DNN) image classifiers. Our method receives as input an image and a class label and produces as output the image regions that the DNN has focused on in order to infer this class. T-TAME uses an attention mechanism (AM), trained end-to-end along with the original, already-trained (frozen) DNN, to derive class activation maps from feature map sets extracted from selected layers. During training, the generated attention maps of the AM are applied to the inputs. The AM weights are updated by applying backpropagation on a multi-objective loss function to optimize the appearance of the attention maps (minimize high-frequency variation and attention mask area) and minimize the cross-entropy loss. This process forces the AM to learn the image regions responsible for the DNN’s output. Two widely used evaluation metrics, Increase in Confidence (IC) and Average Drop (AD), are used for evaluation. Additionally, the promising ROAD framework is also used for evaluation. We evaluate T-TAME on the ImageNet dataset, using the VGG16, ResNet-50, and ViT-B-16 DNNs. Our method outperforms the state-of-the-art methods in terms of IC and AD and achieves competitive results in terms of ROAD. We also provide a detailed ablation study to demonstrate the effectiveness of our method.
 
-- This repository contains the code for training, evaluating, and applying T-TAME, using VGG-16, ResNet-50, or ViT-B-16 as the pre-trained backbone network along with the Attention Mechanism and our selected loss function. There is also a guide on applying TAME to any DNN image classifier.
-- Instead of training, the user can also use a pretrained attention mechanism for the pretrained VGG-16, ResNet-50, or ViT-B-16 image classifiers in `T-TAME/logs/`.
+- This repository contains the code for training, evaluating, and applying T-TAME, using VGG-16, ResNet-50, or ViT-B-16 as the pre-trained backbone network along with the Attention Mechanism and our selected loss function. There is also a guide on applying TAME to any DNN image classifier. 
+- It also contains the trained T-TAME attention mechanism for VGG-16, ViT-B-16, and ResNet-50 and the L-CAM method for the VGG-16 and ResNet-50 classifiers, used for comparisons. The checkpoints are bundled in the repository using `git-lfs`.
 - In `T-TAME/datalist/ILSVRC`, text files with annotations for 2000 randomly selected images to be used at the validation stage (Validation_2000.txt) and 2000 randomly selected images (exclusive of the previous 2000) for the evaluation stage (Evaluation_2000.txt) of the L-CAM methods.
 - The ILSVRC 2012 dataset images should be downloaded by the user manually.
 
@@ -13,6 +13,8 @@ This repository hosts the code and data lists for our learning-based eXplainable
   - [Initial Setup](#initial-setup)
   - [Available scripts](#available-scripts)
   - [Citation](#citation)
+    - [BibTeX](#bibtex)
+    - [BibTeX:](#bibtex-1)
   - [License](#license)
   - [Acknowledgement](#acknowledgement)
 
@@ -91,63 +93,83 @@ python pl_scripts/other_methods_print_mask.py
 
 If you find our TAME method, code, or pretrained models useful in your work, please cite the following publication:
 
-<span style="color:red">
-M. Ntrougkas, N. Gkalelis, V. Mezaris, "TAME: Attention Mechanism Based Feature Fusion for Generating Explanation Maps of Convolutional Neural Networks", 2022, under review.
-</span>
+- M. V. Ntrougkas, N. Gkalelis, and V. Mezaris, “T-TAME: Trainable Attention Mechanism for Explaining Convolutional Networks and Vision Transformers.” arXiv, Mar. 07, 2024. doi: 10.48550/arXiv.2403.04523.
 
 </div>
 
-BibTeX:
+### BibTeX
 
 <span style="color:red">
-~~~bibtex
-@INPROCEEDINGS{Ntrougkas2022,
-    author    = {Ntrougkas, Mariano and Gkalelis, Nikolaos and Mezaris, Vasileios},
-    title     = {TAME: Attention Mechanism Based Feature Fusion for Generating Explanation Maps of Convolutional Neural Networks},
-    booktitle = {under review},
-    month     = {},
-    year      = {2022},
-    pages     = {}
+
+```bibtex
+@misc{ntrougkas2024ttame,
+      title={T-TAME: Trainable Attention Mechanism for Explaining Convolutional Networks and Vision Transformers}, 
+      author={Mariano V. Ntrougkas and Nikolaos Gkalelis and Vasileios Mezaris},
+      year={2024},
+      eprint={2403.04523},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
 }
-~~~
+```
+
 </span>
 
 <div align="justify">
 
-You may want to also consult and, if you find it useful, also cite our earlier work on this topic (methods L-CAM-Img, L-CAM-Fm):
+You may want to also consult and, if you find it useful, also cite our earlier works on this topic (methods TAME, L-CAM-Img, L-CAM-Fm):
 
-I. Gkartzonika, N. Gkalelis, V. Mezaris, "Learning Visual Explanations for DCNN-Based Image Classifiers Using an Attention Mechanism", Proc. ECCV 2022 Workshop on Vision with Biased or Scarce Data (VBSD), Oct. 2022.
+- M. Ntrougkas, N. Gkalelis and V. Mezaris, "TAME: Attention Mechanism Based Feature Fusion for Generating Explanation Maps of Convolutional Neural Networks," in 2022 IEEE International Symposium on Multimedia (ISM), Italy, 2022 pp. 58-65. doi: 10.1109/ISM55400.2022.00014
+- Gkartzonika, I., Gkalelis, N., Mezaris, V. (2023). Learning Visual Explanations for DCNN-Based Image Classifiers Using an Attention Mechanism. In: Karlinsky, L., Michaeli, T., Nishino, K. (eds) Computer Vision – ECCV 2022 Workshops. ECCV 2022. Lecture Notes in Computer Science, vol 13808. Springer, Cham. <https://doi.org/10.1007/978-3-031-25085-9_23>
+
 </div>
 
-BibTeX:
+### BibTeX:
 
-~~~bibtex
-@INPROCEEDINGS{Gkartzonika2022,
-    author    = {Gkartzonika, Ioanna and Gkalelis, Nikolaos and Mezaris, Vasileios},
-    title     = {Learning Visual Explanations for DCNN-Based Image Classifiers Using an Attention Mechanism},
-    booktitle = {Proc. ECCV 2022 Workshop on Vision with Biased or Scarce Data (VBSD)},
-    month     = {Oct.},
-    year      = {2022},
-    pages     = {}
+```bibtex
+@INPROCEEDINGS{10019620,
+  author={Ntrougkas, Mariano and Gkalelis, Nikolaos and Mezaris, Vasileios},
+  booktitle={2022 IEEE International Symposium on Multimedia (ISM)}, 
+  title={TAME: Attention Mechanism Based Feature Fusion for Generating Explanation Maps of Convolutional Neural Networks}, 
+  year={2022},
+  volume={},
+  number={},
+  pages={58-65},
+  keywords={Training;Visualization;Computational modeling;Neural networks;Computer architecture;Streaming media;Feature extraction;CNNs;Deep Learning;Explainable AI;Interpretable ML;Attention},
+  doi={10.1109/ISM55400.2022.00014}}
+
+@InProceedings{10.1007/978-3-031-25085-9_23,
+author="Gkartzonika, Ioanna
+and Gkalelis, Nikolaos
+and Mezaris, Vasileios",
+editor="Karlinsky, Leonid
+and Michaeli, Tomer
+and Nishino, Ko",
+title="Learning Visual Explanations for DCNN-Based Image Classifiers Using an Attention Mechanism",
+booktitle="Computer Vision -- ECCV 2022 Workshops",
+year="2023",
+publisher="Springer Nature Switzerland",
+address="Cham",
+pages="396--411",
+abstract="In this paper two new learning-based eXplainable AI (XAI) methods for deep convolutional neural network (DCNN) image classifiers, called L-CAM-Fm and L-CAM-Img, are proposed. Both methods use an attention mechanism that is inserted in the original (frozen) DCNN and is trained to derive class activation maps (CAMs) from the last convolutional layer's feature maps. During training, CAMs are applied to the feature maps (L-CAM-Fm) or the input image (L-CAM-Img) forcing the attention mechanism to learn the image regions explaining the DCNN's outcome. Experimental evaluation on ImageNet shows that the proposed methods achieve competitive results while requiring a single forward pass at the inference stage. Moreover, based on the derived explanations a comprehensive qualitative analysis is performed providing valuable insight for understanding the reasons behind classification errors, including possible dataset biases affecting the trained classifier (Source code is made publicly available at: https://github.com/bmezaris/L-CAM).",
+isbn="978-3-031-25085-9"
 }
-~~~
+```
 
 ## License
 
 <div align="justify">
 
-Copyright (c) 2024, Mariano Ntrougkas, Nikolaos Gkalelis, Vasileios Mezaris / CERTH-ITI. All rights reserved. This code is provided for academic, non-commercial use only. Redistribution and use in source and binary forms, with or without modification, are permitted for academic non-commercial use provided that the following conditions are met:
+Copyright (c) 2024, Mariano Ntrougkas, Nikolaos Gkalelis, Vasileios Mezaris / CERTH-ITI. All rights reserved. This code is provided for academic, non-commercial use only. Please also check for any restrictions applied in the code parts and datasets used here from other sources. For the materials not covered by any such restrictions, redistribution and use in source and binary forms, with or without modification, are permitted for academic non-commercial use provided that the following conditions are met:
 
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation provided with the distribution.
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation provided with the distribution.
 
 This software is provided by the authors "as is" and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the authors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.
 </div>
 
 ## Acknowledgement
 
-The T-TAME implementation was built in part on code previously released in the [L-CAM](https://github.com/bmezaris/L-CAM) repository.
+The T-TAME implementation was built in part on code previously released in the [TAME](https://https://github.com/bmezaris/TAME) repository.
 
-The code for the methods that are used for comparison is taken from the [L-CAM](https://github.com/bmezaris/L-CAM) repository for L-CAM-Img, the [RISE](https://github.com/eclique/RISE) repository for RISE, the [IIA](https://github.com/iia-iccv23/iia) repository for IIA, the [Transformer-Explainability](https://github.com/hila-chefer/Transformer-Explainability) repository for the Transformer LRP method and the [pytorch-gradcam](https://github.com/yiskw713/ScoreCAM/blob/master/cam.py) repository for all of the remaining methods.
+The code for the methods that are used for comparison is taken from the [TAME](https://github.com/bmezaris/TAME) repository for TAME, the [L-CAM](https://github.com/bmezaris/L-CAM) repository for L-CAM-Img, the [RISE](https://github.com/eclique/RISE) repository for RISE, the [IIA](https://github.com/iia-iccv23/iia) repository for IIA, the [Transformer-Explainability](https://github.com/hila-chefer/Transformer-Explainability) repository for the Transformer LRP method and the [pytorch-gradcam](https://github.com/yiskw713/ScoreCAM/blob/master/cam.py) repository for all of the remaining utilized methods.
 
 <div align="justify"> This work was supported by the EU Horizon 2020 programme under grant agreement H2020-101021866 CRiTERIA. </div>

@@ -13,20 +13,20 @@ chosen_model = model_list[0]
 if chosen_model == "vgg16":
     model_name = "vgg16"
     model = TAMELIT.load_from_checkpoint(
-        "logs/TAME_vgg16_oldnorm/version_0/checkpoints/epoch=7-step=320296.ckpt",
+        "checkpoints/vgg16_TTAME.ckpt",
         train_method="raw_normalize",
     )
 # vit
 elif chosen_model == "vit_b_16":
     model_name = "vit_b_16"
     model = TAMELIT.load_from_checkpoint(
-        "logs/TAME_vit_b_16/version_0/checkpoints/epoch=7-step=320296.ckpt"
+        "checkpoints/vit_b_16_TTAME.ckpt",
     )
 # resnet50
 elif chosen_model == "resnet50":
     model_name = "resnet50"
     model = TAMELIT.load_from_checkpoint(
-        "logs/TAME_resnet50/version_5/checkpoints/epoch=3-step=160148.ckpt",
+        "checkpoints/resnet50_TTAME.ckpt",
         train_method="raw_normalize",
     )
 

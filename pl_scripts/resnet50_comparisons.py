@@ -47,8 +47,7 @@ for version in versions:
             normalize=False,
         )
         model = TAMELIT.load_from_checkpoint(
-            "logs/TAME_resnet50/version_5/checkpoints/"
-            "epoch=3-step=160148.ckpt",
+            "checkpoints/resnet50_TTAME.ckpt",
             LeRF=True,
             train_method="raw_normalize",
             normalized_data=False,
@@ -98,8 +97,7 @@ for version in versions:
 
         AMBuilder.register_attention(version, LCAM)
         model = TAMELIT.load_from_checkpoint(
-            "logs/lcam_resnet50_oldnorm/version_0"
-            "/checkpoints/epoch=7-step=320296.ckpt",
+            "checkpoints/resnet50_lcam.ckpt",
             LeRF=True,
             train_method="raw_normalize",
             normalized_data=False,
