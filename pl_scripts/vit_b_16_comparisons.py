@@ -44,8 +44,7 @@ for version in versions:
         )
 
         model = TAMELIT.load_from_checkpoint(
-            "/ssd/ntrougkas/Documents/T-TAME/logs/TAME_vit_b_16/version_8/checkpoints/"
-            "epoch=7-step=320296.ckpt",
+            "checkpoints/vit_b_16_TTAME.ckpt",
             LeRF=True,
         )
     elif version == "rise":
