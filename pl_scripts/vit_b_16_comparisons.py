@@ -44,7 +44,7 @@ for version in versions:
         )
 
         model = TAMELIT.load_from_checkpoint(
-            "checkpoints/vit_b_16_TTAME.ckpt",
+            "T-TAME-models/checkpoints/vit_b_16_TTAME.ckpt",
             LeRF=True,
         )
     elif version == "rise":

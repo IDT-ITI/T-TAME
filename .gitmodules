@@ -1,3 +1,6 @@
 [submodule "pytorch-grad-cam"]
 	path = pytorch-grad-cam
 	url = git@github.com:jacobgil/pytorch-grad-cam.git
+[submodule "T-TAME-models"]
+	path = T-TAME-models
+	url = https://huggingface.co/IDT-ITI/T-TAME-models
