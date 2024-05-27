@@ -2,7 +2,7 @@
 
 This repository hosts the code and data lists for our learning-based eXplainable AI (XAI) method called T-TAME, for Convolutional and Transformer-like Deep Neural Network-based (DNN) image classifiers. Our method receives as input an image and a class label and produces as output the image regions that the DNN has focused on in order to infer this class. T-TAME uses an attention mechanism (AM), trained end-to-end along with the original, already-trained (frozen) DNN, to derive class activation maps from feature map sets extracted from selected layers. During training, the generated attention maps of the AM are applied to the inputs. The AM weights are updated by applying backpropagation on a multi-objective loss function to optimize the appearance of the attention maps (minimize high-frequency variation and attention mask area) and minimize the cross-entropy loss. This process forces the AM to learn the image regions responsible for the DNN’s output. Two widely used evaluation metrics, Increase in Confidence (IC) and Average Drop (AD), are used for evaluation. Additionally, the promising ROAD framework is also used for evaluation. We evaluate T-TAME on the ImageNet dataset, using the VGG16, ResNet-50, and ViT-B-16 DNNs. Our method outperforms the state-of-the-art methods in terms of IC and AD and achieves competitive results in terms of ROAD. We also provide a detailed ablation study to demonstrate the effectiveness of our method.
 
-- This repository contains the code for training, evaluating, and applying T-TAME, using VGG-16, ResNet-50, or ViT-B-16 as the pre-trained backbone network along with the Attention Mechanism and our selected loss function. There is also a guide on applying TAME to any DNN image classifier. 
+- This repository contains the code for training, evaluating, and applying T-TAME, using VGG-16, ResNet-50, or ViT-B-16 as the pre-trained backbone network along with the Attention Mechanism and our selected loss function. There is also a guide on applying TAME to any DNN image classifier.
 - It also contains the trained T-TAME attention mechanism for VGG-16, ViT-B-16, and ResNet-50 and the L-CAM method for the VGG-16 and ResNet-50 classifiers, used for comparisons. The checkpoints are bundled in the repository using `git-lfs`.
 - In `T-TAME/datalist/ILSVRC`, text files with annotations for 2000 randomly selected images to be used at the validation stage (Validation_2000.txt) and 2000 randomly selected images (exclusive of the previous 2000) for the evaluation stage (Evaluation_2000.txt) of the L-CAM methods.
 - The ILSVRC 2012 dataset images should be downloaded by the user manually.
@@ -14,13 +14,13 @@ This repository hosts the code and data lists for our learning-based eXplainable
   - [Available scripts](#available-scripts)
   - [Citation](#citation)
     - [BibTeX](#bibtex)
-    - [BibTeX:](#bibtex-1)
+    - [BibTeX](#bibtex-1)
   - [License](#license)
   - [Acknowledgement](#acknowledgement)
 
 ## Initial Setup
 
-Make sure that you have a working git, Python 3, cuda, and poetry installation before proceeding.
+Make sure that you have a working git, git-lfs, Python 3, cuda, and poetry installation before proceeding.
 
 - To install git, follow the instructions [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
@@ -30,10 +30,13 @@ Make sure that you have a working git, Python 3, cuda, and poetry installation b
 
 - To install poetry, follow the instructions [here](https://python-poetry.org/docs/).
 
+- To install git-lfs, follow the instructions [here](https://git-lfs.com)
+
 1. Clone this repository:
 
    ```shell
-   git clone git@github.com:marios1861/T-TAME.git
+   git lfs install
+   git clone --recurse-submodules git@github.com:marios1861/T-TAME.git
    ```
 
 2. Go to the locally saved repository path:
@@ -123,7 +126,7 @@ You may want to also consult and, if you find it useful, also cite our earlier w
 
 </div>
 
-### BibTeX:
+### BibTeX
 
 ```bibtex
 @INPROCEEDINGS{10019620,
