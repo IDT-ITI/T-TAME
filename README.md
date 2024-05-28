@@ -96,7 +96,7 @@ python pl_scripts/other_methods_print_mask.py
 
 If you find our TAME method, code, or pretrained models useful in your work, please cite the following publication:
 
-- M. V. Ntrougkas, N. Gkalelis, and V. Mezaris, “T-TAME: Trainable Attention Mechanism for Explaining Convolutional Networks and Vision Transformers.” arXiv, Mar. 07, 2024. doi: 10.48550/arXiv.2403.04523.
+- M. V. Ntrougkas, N. Gkalelis, and V. Mezaris, “T-TAME: Trainable Attention Mechanism for Explaining Convolutional Networks and Vision Transformers.”, IEEE Access, 2024. [doi: 10.1109/ACCESS.2024.3405788](https://doi.org/10.1109/ACCESS.2024.3405788).
 
 </div>
 
@@ -105,14 +105,16 @@ If you find our TAME method, code, or pretrained models useful in your work, ple
 <span style="color:red">
 
 ```bibtex
-@misc{ntrougkas2024ttame,
-      title={T-TAME: Trainable Attention Mechanism for Explaining Convolutional Networks and Vision Transformers}, 
-      author={Mariano V. Ntrougkas and Nikolaos Gkalelis and Vasileios Mezaris},
-      year={2024},
-      eprint={2403.04523},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
-}
+@ARTICLE{10539635,
+  author={Ntrougkas, Mariano V. and Gkalelis, Nikolaos and Mezaris, Vasileios},
+  journal={IEEE Access}, 
+  title={T-TAME: Trainable Attention Mechanism for Explaining Convolutional Networks and Vision Transformers}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={1-1},
+  keywords={Convolutional neural networks;Transformers;Task analysis;Computer architecture;Image classification;Computational modeling;Training;CNN;Vision Transformer;Deep Learning;Explainable AI;Model Interpretability;Attention},
+  doi={10.1109/ACCESS.2024.3405788}}
 ```
 
 </span>
@@ -153,7 +155,6 @@ year="2023",
 publisher="Springer Nature Switzerland",
 address="Cham",
 pages="396--411",
-abstract="In this paper two new learning-based eXplainable AI (XAI) methods for deep convolutional neural network (DCNN) image classifiers, called L-CAM-Fm and L-CAM-Img, are proposed. Both methods use an attention mechanism that is inserted in the original (frozen) DCNN and is trained to derive class activation maps (CAMs) from the last convolutional layer's feature maps. During training, CAMs are applied to the feature maps (L-CAM-Fm) or the input image (L-CAM-Img) forcing the attention mechanism to learn the image regions explaining the DCNN's outcome. Experimental evaluation on ImageNet shows that the proposed methods achieve competitive results while requiring a single forward pass at the inference stage. Moreover, based on the derived explanations a comprehensive qualitative analysis is performed providing valuable insight for understanding the reasons behind classification errors, including possible dataset biases affecting the trained classifier (Source code is made publicly available at: https://github.com/bmezaris/L-CAM).",
 isbn="978-3-031-25085-9"
 }
 ```
