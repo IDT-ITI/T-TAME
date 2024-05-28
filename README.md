@@ -94,7 +94,7 @@ python pl_scripts/other_methods_print_mask.py
 
 <div align="justify">
 
-If you find our TAME method, code, or pretrained models useful in your work, please cite the following publication:
+If you find our T-TAME method, code, or pretrained models useful in your work, please cite the following publication:
 
 - M. V. Ntrougkas, N. Gkalelis, and V. Mezaris, “T-TAME: Trainable Attention Mechanism for Explaining Convolutional Networks and Vision Transformers.”, IEEE Access, 2024. [doi: 10.1109/ACCESS.2024.3405788](https://doi.org/10.1109/ACCESS.2024.3405788).
 
