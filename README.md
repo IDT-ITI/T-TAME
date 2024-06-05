@@ -66,7 +66,6 @@ Make sure that you have a working git, git-lfs, Python 3, cuda, and poetry insta
 ## Available scripts
 
 You can evaluate the compared methods, including T-TAME with the `{vgg16, resnet50, vit_b_16}` backbones using the following command:
- using the command:
 
 ```shell
 python pl_scripts/{vgg16, resnet50, vit_b_16}_comparisons.py
